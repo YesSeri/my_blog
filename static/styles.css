@@ -46,36 +46,26 @@
 	/* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
-* {
-	font-family: "Poppins" !important;
+html {
+	font-family: Poppins, Helvetica;
 }
 
-/* The animation code */
-@keyframes anim {
-	0% {
-		background-color: #225c08;
-	}
-
-	50% {
-		background-color: #3a872d;
-	}
-
-	100% {
-		background-color: #4fb552;
-	}
-
-
-
+button {
+	font-family: Poppins, Helvetica;
 }
-
 
 /* The element to apply the animation to */
 #saved-icon {
 	height: 100%;
 	border-radius: 10px;
-	animation-name: anim;
-	animation-duration: 2s;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
-	animation-timing-function: linear;
+	background-color: #33bd11;
+	display: none;
+}
+
+#saved-icon {
+	fill: white;
+}
+
+#error-message {
+	display: none;
 }
