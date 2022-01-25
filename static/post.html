@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>My Blog</title>
+	<meta name="description" content="Blog template by Henrik Zenkert">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Include Quill stylesheet -->
+	<link rel="stylesheet" href="quill.css">
+	<link rel="stylesheet" href="simple.css">
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+	<h1>My Blog</h1>
+	<nav>
+		<a href="/">Home</a>
+		<a href="/post">Post</a>
+	</nav>
+
+	<div id="title">
+		<input type="text" placeholder="Title" style="width:100%;"></input>
+	</div>
+	<hr>
+	<div id="editor">
+		<p></p>
+	</div>
+	<div style="display:grid; grid-template-columns: 1fr 1fr; align-items: center;">
+		<button onclick="save()">
+			Submit
+		</button>
+		<div style='padding: 0.7rem 0.9rem;margin: 0.5rem 0;'>
+			<div style='text-align: center;height:100%;display:none;' id="saved-icon">FILE SAVED</div>
+		</div>
+	</div>
+
+	<!-- Include the Quill library -->
+	<script src="./quill.js"></script>
+
+	<!-- Initialize Quill editor -->
+	<script>
+		const options = {
+			modules: {
+				toolbar: [
+					['bold', 'italic', 'blockquote', 'code-block'],
+				]
+			},
+			theme: 'snow'
+		}
+		const editor = new Quill('#editor', options);
+		function save() {
+			const title = document.querySelector('#title>input').value;
+			const textarea = document.getElementsByClassName('ql-editor')[0];
+
+			// Take all non empty dom elements in the editor and extract them 
+			const content = [...textarea.children].filter(child => child.innerText !== "\n").map(child => child.outerHTML).join("\n");
+
+			fetch("/post", {
+				method: "POST",
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ title, content })
+			}).then(res => {
+				const savedDiv = document.querySelector('#saved-icon');
+				savedDiv.style.display = "block";
+				setTimeout(() => {
+					savedDiv.style.display = 'none'
+				}, 3000)
+			});
+
+		}
+	</script>
+</body>
+
+</html>
