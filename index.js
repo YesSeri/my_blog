@@ -2,6 +2,9 @@ const express = require('express')
 const basicAuth = require('express-basic-auth')
 const app = express()
 require('dotenv').config()
+if (!process.env.BLOGADMIN || !process.env.PASSWORD) {
+	throw new Error("Please setup your .env file correctly. Add BLOGADMIN and PASSWORD")
+}
 const port = process.env.PORT || 3000;
 const path = require('path')
 
@@ -23,7 +26,7 @@ app.use(express.json());
 
 const staticUserAuth = basicAuth({
 	users: {
-		[process.env.BLOGUSER]: process.env.PASSWORD
+		[process.env.BLOGADMIN]: process.env.PASSWORD
 	},
 	challenge: true,
 })

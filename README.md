@@ -11,7 +11,7 @@ It is only for personal use. There is only an admin login. If you want to have u
 To run this project, you will need to add the following environment variables to your .env file
 
 ```
-BLOGUSER=username
+BLOGADMIN=username
 PASSWORD=password
 ```
 
